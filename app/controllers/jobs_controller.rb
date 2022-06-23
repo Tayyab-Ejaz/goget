@@ -14,7 +14,7 @@ class JobsController < ApplicationController
         drop_address = Address.new(job_params[:drop_address])
         if pickup_address.save && drop_address.save
             job = Job.create(pickup_address_id: pickup_address.id, drop_address_id: drop_address.id, created_by: @current_user.id)
-            render status: 200, json: { message: "Job successfully created!" }
+            render status: 200, json: { message: "Job successfully created!", job_id: job.id }
         else
             render status: 400, json: { errors: pickup_address.errors.messages.merge(drop_address.errors.messages) }
         end
